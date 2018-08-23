@@ -1,28 +1,39 @@
-Cobalt
-================
-![Cobalt desktop](https://i.imgur.com/dyBXy5c.png)
-================
+ <div>
+  <h3 align="center"><img src="logo/cobalt-logo.png"/><br>A FreeDOS-based operating system designed to be light, simple and easy to use. </h3>
+</div>
+
+
+
+## Introduction
 
 Cobalt is a new operating system based on FreeDOS, designed to be easy to use. Unlike FreeDOS, Cobalt is designed for users with no previous DOS experience. Cobalt uses the FreeDOS 1.1 kernel, ensuring 100% compatibility with DOS programs and games.
 
 Cobalt currently includes:
 
- * [4DOS 8.00](https://en.wikipedia.org/wiki/4DOS) command line
  * FAT12/16/32 file system support
  * Optional [OpenGEM desktop environment](http://www.opendawn.com/opengem/)
- * Network/internet support ([more info](https://github.com/cobalt-os/cobalt/wiki/Networking-on-Cobalt))
- * Full VirtualBox support with file transfer functionality ([more info](https://github.com/cobalt-os/cobalt/wiki/Networking-on-Cobalt))
+ * Out the box network/internet support 
  * Support for CD/DVD drives
  * Built-in mouse driver
  * Support for [Long file names](https://en.wikipedia.org/wiki/Long_filename)
+ * Include [DOS-Coreutils](https://github.com/Atnode/FreeDOS-Coreutils) (different utilities inspired by GNU Coreutils)
 
 If you have an existing computer (or virtual machine) with a DOS-based operating system, Cobalt will allow you to 'upgrade' over the existing OS and keep all your files.
 
-### Download Cobalt
+## Download Cobalt
 
 Cobalt 1.2 is available to download [here](https://github.com/corbindavenport/cobalt/releases/tag/1.2). Download the zip file, unzip it, and either burn the ISO to a disc or mount it in a virtual machine to run.
 
-### How to compile
+## What's new?
+
+New in Cobalt 1.3:
+
+ * OpenGEM has replaced FreeDOS Shell as the desktop environment
+ * Now under the MIT license
+ * Bash compiler now supports Debian
+ * BASE and DESKTOP packages are now zipped during the compilation process
+
+## How to compile
 
 Cobalt is easy to compile into a bootable .iso file. First, make sure you have the entire repo downloaded/cloned. If you are on Windows, just run the `compile.bat` file. If you are using Linux or Mac, run the `compile.sh` file. On Linux/Mac you may have to mark it as executable first, with `chmod +x ./compile.sh`.
 
@@ -38,21 +49,7 @@ Compiling Cobalt is only supported on Windows, Linux, and Mac. Other Unix-based 
 
 If Mkisofs is not installed on your system, the compile script will use the binaries included in the Cobalt repository (the Linux binary only works on x86 systems).
 
-### How the boot disc works
-
-On boot of the .iso image (or whatever media it was burned to), isolinux is loaded. It then mounts the floppy image located at `cdroot/isolinux/BTDISK.IMG`. The floppy image loads a base FreeDOS 1.1 system and enough drivers to mount the entire CD partition (the `cdroot` folder), sets it to the D:\ drive, and runs the AUTORUN.BAT file within `cdroot`.
-
-There are two main packages in the installer. The first, `BASE.ZIP`, contains the base Cobalt OS without a desktop. The second package, `DESKTOP.ZIP`, includes the optional FreeDOS Shell package. Both of these packages are zipped from the base and desktop folders (found in the packages folder) when the compile script is run.
-
----------------------------------------------------------
-
-__New in Cobalt 1.3:__
-* OpenGEM has replaced FreeDOS Shell as the desktop environment
-* Now under the MIT license
-* Bash compiler now supports Debian
-* BASE and DESKTOP packages are now zipped during the compilation process
-
----------------------------------------------------------
+***
 
 Copyright 2017 Corbin Davenport
 
