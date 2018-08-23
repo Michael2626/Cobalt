@@ -1,0 +1,96 @@
+Date: 2010-06-23
+Author: André Gillibert
+
+==== INTRODUCTION ====
+DOSbootI is an alternative volume boot record for PC-DOS/MS-DOS 2.x to 7.x that seems to work with DR-DOS 6 too.
+
+
+It removes some of the original VBR limitations while keeping its philosophy.
+MS-DOS VBR were incompatible from version to version. DOSbootI is compatible with all of them except PC-DOS 1.x as there is not enough space to store special code for it.
+
+==== RATIONALE  ====
+Removing directory and cluster location restrictions of IO.SYS and MSDOS.SYS make it possible to install several versions of MS-DOS on the same partition, giving different names to their files.
+With a patched IO.SYS it may even be possible to boot on a non-standard drive (e.g. booting on E: rather than on C: or A:).
+
+==== BACKGROUND ====
+The Volume Boot Record is a 512 bytes code located at the first sector of any FAT partition.
+Typically, it's directly loaded by BIOS on a floppy drive or indirectly through MBR on hard drive, at 0000:7C00 and executed. It comes with very little context (DL = INT 13 boot drive number), and ignores this context in the case of MS-DOS and DOSbootI.
+This makes the VBR context-independent. It can be chainloaded from GRUB!
+
+The three first bytes of the VBR jump over a standard description (BIOS Parameter Block = BPB) of the partition geometry (see File_Allocation_Table on wikipedia).
+Among other things, it contains the int 13h BIOS boot disk (at offset 24h), and the number of hidden sectors which is the absolute number of the first sector of the partition. Consequently the BPB must be manually updated if a partition is moved around with GNU parted.
+
+The main code of the VBR is 448 bytes.
+Its main purpose is to locate IO.SYS, the low-level part of the MS-DOS kernel, to load it entirely (MS-DOS 1 and 2) or its first few sectors (MS-DOS 3 or more) and to execute it.
+Then for MS-DOS 3.x or more, the first few sectors of IO.SYS are another boot loader code which is able to load IO.SYS entirely and execute it. Then, IO.SYS loads the high-level part of MS-DOS kernel contained in MSDOS.SYS, which, in turn, loads CONFIG.SYS and executes the shell (\COMMAND.COM if not specified in CONFIG.SYS).
+
+CONFIG.SYS is optional.
+The MS-DOS minimal installation is three files:
+IO.SYS
+MSDOS.SYS
+COMMAND.COM
+
+Except in MS-DOS 7.x and 8.0 where MSDOS.SYS and IO.SYS have been merged in a single IO.SYS file.
+
+The SYS.COM programs is able to write the 448 bytes of the VBR (while keeping the FAT BPB), and copy IO.SYS, MSDOS.SYS and COMMAND.COM.
+
+The VBR being quite primitive until MS-DOS 7.0, there were restrictions on where IO.SYS and MSDOS.SYS could be located.
+
+==== REMOVED LOCATION RESTRICTIONS ====
+Up to and including MS-DOS 6.22, IO.SYS and MSDOS.SYS had to be the first two directory entries of the root directory.
+For DOSbootI and MS-DOS 7.x, IO.SYS and MSDOS.SYS may be located anywhere in the root directory.
+
+MS-DOS 3.x and MS-DOS 4.x require IO.SYS first cluster to be the first cluster (cluster #2) of the file system.
+DOSbootI removes this restriction for MS-DOS 3.x, but not for MS-DOS 4.x even though it's possible to patch MS-DOS 4.x, by simply replacing the first few bytes of MS-DOS 4.x IO.SYS by the MS-DOS 5.0 loader.
+
+MS-DOS 2.x requires IO.SYS first cluster to be cluster #2, and subsequent clusters to be contiguous.
+With DOSbootI, the first cluster may be located anywhere, but IO.SYS must still be contiguous on disk.
+
+==== REMOVED DISK SIZE RESTRICTIONS ====
+MS-DOS <= 6.22 supports only CHS addressing (INT 13/AH=02), making address at most 8GB.
+MS-DOS 7.x supports LBA (INT 13/AH=42).
+MS-DOS <= 6.22 have an additionnal limitation on the boot partition: It cannot be located above cylinder 255 (due to a bug/feature in the LBA->CHS conversion algorithm) which requires the first three sectors of IO.SYS to be below 2 GB.
+
+DOSbootI uses LBA (up to 2 TiB partition as only the lower 32 bits are used) when available, and falls back to CHS with a fully functionnal algorithm (up to 8 GB) if necessary.
+
+==== COMPATIBILITY ====
+Its code is very different from any MS-DOS VBR, but uses the same string constants at the same locations that MS-DOS 5.0/6.22, giving some compatibility with some binary patches.
+
+0A0h: Error message
+0E0h: 11 bytes IO.SYS short file name ("IO      SYS")
+0E8h: 11 bytes MSDOS.SYS short file name ("MSDOS   SYS")
+NB: There is no nul terminator.
+
+It also uses the same BPB size so that the initial JMP (EB 3C 90) is compatible between MS-DOS 6.22 and DOSbootI.
+Note that older MS-DOS may format disks with a smaller JMP. It can safely be updated, and adequate data (mostly zeroes) be stored in the BPB where there was the old MS-DOS VBR code. Typically, byte 024h must be set to 80h or 00h (boot drive).
+Warning: MS-DOS 1 or 2 have a non-standard BPB. You should check wikipedia's details about FAT's BPB and check every byte. IIRC, "Hidden Sectors" was a WORD rather than a DWORD, and the boot drive was immediately following the 16 bits "hidden sectors" count. Just zeroes out all "extended BPB" stuff, 32 bits "total sectors count" and old boot drive byte, and store the boot drive byte at 024h. This doesn't cause any incompatibility when the system is booted up, as the 32 bits count are ignored by these old DOS versions and the boot drive is ignored by everything but the VBR.
+If you thoroughly examine the BPB, that should be easy.
+
+==== HOW TO USE ====
+Basically, you just need to copy bytes 3Eh-200h of the binary boot sector to bytes 3Eh-200h of the first sector of the partition.
+
+In order to run MS-DOS 2.x, byte 0FBh must be set to 02 (it's set to 03 for MS-DOS 3 and more).
+On floppy drive, byte 0FCh must be set to 0F0h, while it should be set to 0F2h for hard drives.
+This is to provide compatibility with an improved boot procedure of an experimental MS-DOS 6.22 IO.SYS supporting booting on any volume. To boot on E:, one would set byte 0FCh to 0F4h.
+
+When using PC-DOS, replace the string "IO      SYSMSDOS   SYS" at 0Eh with "IBMBIO  COMIBMDOS  COM".
+You may use any other file name, making it possible to give arbitrary names to IO.SYS and MSDOS.SYS.
+
+==== OPERATION DETAILS ====
+The VBR performs these operations, in order:
+1) Change diskette parameters (see Ralf's Brown Interrupt List, for Interrupt 1Eh) to set a 15 milliseconds head settle time, avoiding read errors on slow floppy drives.
+
+2) Locate IO.SYS and MSDOS.SYS in the root directory.
+
+3) Store their first cluster number at 0000:51A and 0000:53A as it's where IO.SYS will look at when it'll try to load itself or load MSDOS.SYS
+This info may have to be stored elsewhere too (e.g. DI=first cluster of IO.SYS for MS-DOS 7.x)
+
+4) Load the first few sectors (26 kilobytes) of IO.SYS at 0070:0000
+
+5) Detect which version of DOS to boot (2, 3 to 6, 7.x) by the magic byte at 0FCh in the boot record and the MZ signature at the start of MS-DOS 7.x IO.SYS.
+
+6) Prepares registers for the specific DOS version.
+
+7) Jump to the start of IO.SYS code (0070:0000 for MS-DOS <= 6 and 0070:200 for MS-DOS 7.x).
+
+If any error occurs, diskette parameters are restored, a message is output, the user is asked to press a key and INT 19 is called (see RBIL).

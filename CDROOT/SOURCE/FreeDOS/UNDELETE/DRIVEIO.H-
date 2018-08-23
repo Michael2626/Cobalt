@@ -1,0 +1,30 @@
+/*
+// Program:  Format
+// Version:  0.91r
+// (0.90b/c - DMA boundary avoidance by Eric Auer - May 2003)
+// (0.91r: added Exit() - Eric 2004)
+// Written By:  Brian E. Reifsnyder
+// Copyright:  2002 under the terms of the GNU GPL, Version 2
+*/
+
+#ifndef DRIVEIO_H
+#define DRIVEIO_H
+
+#ifdef DIO
+  #define DIOEXTERN   /* */
+#else
+  #define DIOEXTERN   extern
+#endif
+
+#define READ 42		/* any value */
+#define WRITE 23	/* any value != READ */
+
+DIOEXTERN void Lock_Unlock_Drive(int lock);	/* by Eric Auer for 0.91l */
+
+DIOEXTERN int Drive_IO(int command, unsigned long sector_number, void far *buffer);
+DIOEXTERN void Enable_Disk_Access(void);
+
+DIOEXTERN unsigned int FAT32_AbsReadWrite(char DosDrive, ULONG sector, void far *buffer, unsigned ReadOrWrite);
+DIOEXTERN unsigned int TE_AbsReadWrite(char DosDrive, ULONG sector, void far *buffer, unsigned ReadOrWrite);
+
+#endif
