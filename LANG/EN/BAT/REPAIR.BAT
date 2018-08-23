@@ -88,9 +88,8 @@ if errorlevel 2 goto cancel
 %bin%\SUSCR.EXE /D " Cobalt %ver% Repair " /M "Installing base DOS system..."
 %bin%\SYS.COM A: C:
 %bin%\SUSCR.EXE /D " Cobalt %ver% Repair " /M "Decompressing BASE.ZIP..."
-%bin%\UNZIP.exe -o -q BASE.ZIP -d c:\%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing %zip%\BASE.ZIP..."
-%bin%\UNZIP.exe -o -q %zip%\BASE.ZIP -d c:\
-%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing %zip%\EN.ZIP..."
+%bin%\UNZIP.exe -o -q BASE.ZIP -d c:\
+%bin%\SUSCR.EXE /D " Cobalt %ver% Repair " /M "Decompressing EN.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\EN.ZIP -d c:\
 if not errorlevel 0 goto error
 del c:\COMMAND.COM

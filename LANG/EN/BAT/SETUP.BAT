@@ -134,9 +134,9 @@ if errorlevel 2 goto cancel
 %bin%\ATTRIB.COM -H C:\KERNEL.SYS
 %bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Installing base DOS system..."
 %bin%\SYS.COM A: C:
-%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing %zip%\BASE.ZIP..."
+%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing BASE.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\BASE.ZIP -d c:\
-%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing %zip%\EN.ZIP..."
+%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing EN.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\EN.ZIP -d c:\
 if not errorlevel 0 goto error
 del c:\COMMAND.COM
@@ -165,9 +165,9 @@ DEL C:\CONFIG.SYS
 DEL C:\AUTOEXEC.BAT
 %bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Installing base DOS system..."
 %bin%\SYS.COM A: C:
-%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing %zip%\BASE.ZIP..."
+%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing BASE.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\BASE.ZIP -d c:\
-%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing %zip%\EN.ZIP..."
+%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing EN.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\EN.ZIP -d c:\
 if not errorlevel 0 goto error
 del c:\COMMAND.COM
@@ -186,9 +186,9 @@ if errorlevel 2 goto cancel
 %bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Copying base system files..."
 %bin%\FORMAT.EXE c: /z:seriously /v:COBALT /s /y
 if not errorlevel 0 goto error
-%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing %zip%\BASE.ZIP..."
+%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing BASE.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\BASE.ZIP -d c:\
-%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing %zip%\EN.ZIP..."
+%bin%\SUSCR.EXE /D " Cobalt %ver% Setup " /M "Decompressing EN.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\EN.ZIP -d c:\
 if not errorlevel 0 goto error
 del c:\COMMAND.COM
