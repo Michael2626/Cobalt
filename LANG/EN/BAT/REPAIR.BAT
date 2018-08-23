@@ -119,7 +119,7 @@ goto complete
 :complete
 %bin%\SUSCR.EXE /D " Cobalt %ver% Repair " /M "Finished installation."
 echo.
-echo  Congratulations, your Cobalt installation has been fully repaied.
+echo  Congratulations, your Cobalt installation has been fully repaired.
 echo  Please eject the install disc and press ENTER to reboot
 echo  your computer.
 echo.

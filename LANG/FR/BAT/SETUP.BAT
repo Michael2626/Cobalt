@@ -5,7 +5,7 @@ set bin=\COBALT\BIN
 set zip=\COBALT\ZIP
 set ver=1.3
 
-echo Loading setup...
+echo Chargement...
 echo.
 cls
 
@@ -128,7 +128,7 @@ echo.
 echo  Le dossier Cobalt pr‚c‚dent sera supprim‚ et remplac‚ par
 echo  … un nouveau dossier Cobalt.
 echo.
-echo  Appuyez sur Y pour commencer l'installation, ou N pour annuler.
+echo  Appuyez sur O pour commencer l'installation, ou N pour annuler.
 echo.
 %bin%\CHOICE.EXE > nul
 if errorlevel 2 goto cancel
@@ -149,7 +149,7 @@ del c:\COMMAND.COM
 goto askdesktop
 
 :upgradedos
-%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M Installer Cobalt dans le lecteur C: ?" /F "O/N?"
+%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "Installer Cobalt dans le lecteur C: ?" /F "O/N?"
 echo.
 echo  Ce programme d'installation a d‚tect‚ une installation pr‚c‚dente d'un
 echo  systŠme d'exploitation bas‚ sur DOS, tel que FreeDOS ou MS-DOS.
@@ -158,11 +158,11 @@ echo  Cobalt renomera AUTOEXEC.BAT et CONFIG.SYS
 echo  en AUTOEXEC.OLD et CONFIG.OLD, respectivement.
 echo  Aucun autres fichiers seront modifi‚s.
 echo.
-echo  Appuyez sur Y pour commencer l'installation, ou N pour annuler.
+echo  Appuyez sur O pour commencer l'installation, ou N pour annuler.
 echo.
 %bin%\CHOICE.EXE > nul
 if errorlevel 2 goto cancel
-%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "Renaming existing DOS files..."
+%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "Renommage des fichiers DOS existants..."
 %bin%\ATTRIB.COM -H C:\AUTOEXEC.BAT
 %bin%\ATTRIB.COM -H C:\CONFIG.SYS
 COPY C:\CONFIG.SYS C:\CONFIG.OLD
