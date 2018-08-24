@@ -5,7 +5,7 @@ set bin=\COBALT\BIN
 set zip=\COBALT\ZIP
 set ver=1.3
 
-echo Loading setup...
+echo Chargement...
 echo.
 cls
 
@@ -128,7 +128,7 @@ echo.
 echo  Le dossier Cobalt prÇcÇdent sera supprimÇ et remplacÇ par
 echo  Ö un nouveau dossier Cobalt.
 echo.
-echo  Appuyez sur Y pour commencer l'installation, ou N pour annuler.
+echo  Appuyez sur O pour commencer l'installation, ou N pour annuler.
 echo.
 %bin%\CHOICE.EXE > nul
 if errorlevel 2 goto cancel
@@ -140,7 +140,7 @@ if errorlevel 2 goto cancel
 %bin%\ATTRIB.COM -H C:\KERNEL.SYS
 %bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "Installation de la base du systäme..."
 %bin%\SYS.COM A: C:
-%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "DÇcompression de  BASE.ZIP..."
+%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "DÇcompression de BASE.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\BASE.ZIP -d c:\
 %bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "DÇcompression de FR.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\FR.ZIP -d c:\
@@ -149,7 +149,7 @@ del c:\COMMAND.COM
 goto askdesktop
 
 :upgradedos
-%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M Installer Cobalt dans le lecteur C: ?" /F "O/N?"
+%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "Installer Cobalt dans le lecteur C: ?" /F "O/N?"
 echo.
 echo  Ce programme d'installation a dÇtectÇ une installation prÇcÇdente d'un
 echo  systäme d'exploitation basÇ sur DOS, tel que FreeDOS ou MS-DOS.
@@ -158,11 +158,11 @@ echo  Cobalt renomera AUTOEXEC.BAT et CONFIG.SYS
 echo  en AUTOEXEC.OLD et CONFIG.OLD, respectivement.
 echo  Aucun autres fichiers seront modifiÇs.
 echo.
-echo  Appuyez sur Y pour commencer l'installation, ou N pour annuler.
+echo  Appuyez sur O pour commencer l'installation, ou N pour annuler.
 echo.
 %bin%\CHOICE.EXE > nul
 if errorlevel 2 goto cancel
-%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "Renaming existing DOS files..."
+%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "Renommage des fichiers DOS existants..."
 %bin%\ATTRIB.COM -H C:\AUTOEXEC.BAT
 %bin%\ATTRIB.COM -H C:\CONFIG.SYS
 COPY C:\CONFIG.SYS C:\CONFIG.OLD
@@ -171,7 +171,7 @@ DEL C:\CONFIG.SYS
 DEL C:\AUTOEXEC.BAT
 %bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "Installation de la base du systäme..."
 %bin%\SYS.COM A: C:
-%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "DÇcompression de  BASE.ZIP..."
+%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "DÇcompression de BASE.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\BASE.ZIP -d c:\
 %bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "DÇcompression de FR.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\FR.ZIP -d c:\
@@ -192,7 +192,7 @@ if errorlevel 2 goto cancel
 %bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "Installation de la base du systäme..."
 %bin%\FORMAT.EXE c: /z:seriously /v:COBALT /s /y
 if not errorlevel 0 goto error
-%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "DÇcompression de  BASE.ZIP..."
+%bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "DÇcompression de BASE.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\BASE.ZIP -d c:\
 %bin%\SUSCR.EXE /D " Installation de Cobalt %ver% " /M "DÇcompression de FR.ZIP..."
 %bin%\UNZIP.exe -o -q %zip%\FR.ZIP -d c:\
