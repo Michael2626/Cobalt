@@ -44,7 +44,7 @@ if exist CDROOT\COBALT\ZIP\BASE.ZIP (
     del CDROOT\COBALT\ZIP\BASE.ZIP
     echo [ OK ] Deleting existing BASE.ZIP file.
 )
-cd PACKAGES\base
+cd PKG\base
 ..\..\7za a ..\..\CDROOT\COBALT\ZIP\BASE.ZIP *
 cd ..\..\
 
@@ -53,7 +53,7 @@ if exist CDROOT\COBALT\ZIP\DESKTOP.ZIP (
     del CDROOT\COBALT\ZIP\DESKTOP.ZIP
     echo [ OK ] Deleting existing DESKTOP.ZIP file.
 )
-cd PACKAGES\desktop
+cd PKG\desktop
 ..\..\7za a ..\..\CDROOT\COBALT\ZIP\DESKTOP.ZIP *
 cd ..\..\
 
@@ -70,10 +70,11 @@ if exist CDROOT\COBALT\ZIP\FR.ZIP (
     del CDROOT\COBALT\ZIP\FR.ZIP
     echo [ OK ] Deleting existing FR.ZIP file.
 )
-cd LANG\FR\PACKAGES
+cd LANG\FR\PKG
 ..\..\..\7za a ..\..\..\CDROOT\COBALT\ZIP\FR.ZIP *
 cd ..\..\..\
 
+:: copy the french installer files
 if exist CDROOT\COBALT\SETUP.BAT (
     del CDROOT\COBALT\SETUP.BAT
     echo [ OK ] Deleting existing SETUP.BAT file.
@@ -86,6 +87,7 @@ cd LANG\FR\BAT
 copy *.BAT ..\..\..\CDROOT\COBALT\
 cd ..\..\..\
 
+:: copy the french bootdisk
 if exist CDROOT\ISOLINUX\BTDSK.IMG (
     del CDROOT\ISOLINUX\BTDSK.IMG
     echo [ OK ] Deleting existing BTDSK.IMG file.
@@ -104,10 +106,11 @@ if exist CDROOT\COBALT\ZIP\EN.ZIP (
     echo [ OK ] Deleting existing EN.ZIP file.
 )
 
-cd LANG\EN\PACKAGES
+cd LANG\EN\PKG
 ..\..\..\7za a ..\..\..\CDROOT\COBALT\ZIP\EN.ZIP *
 cd ..\..\..\
 
+:: copy the english installer files
 if exist CDROOT\COBALT\SETUP.BAT (
     del CDROOT\COBALT\SETUP.BAT
     echo [ OK ] Deleting existing SETUP.BAT file.
@@ -120,6 +123,8 @@ cd LANG\EN\BAT
 copy *.BAT ..\..\..\CDROOT\COBALT\
 cd ..\..\..\
 
+
+:: copy the english bootdisk
 if exist CDROOT\ISOLINUX\BTDSK.IMG (
     del CDROOT\ISOLINUX\BTDSK.IMG
     echo [ OK ] Deleting existing BTDSK.IMG file.
@@ -142,10 +147,12 @@ mkisofs -quiet -o "%FILE%" -p "%NAME%" -publisher "%PUBLISHER%" -V "%TITLE%" -b 
 echo [ OK ] Compile finished
 goto end
 
+:: if there is no argument
 :noarg
 echo You must specify a language as an argument. (EN, FR)
 goto end
 
+:: if the argument is incorrect
 :errorarg
 echo "%1" isn't a correct argument.
 echo You must specify a language as an argument. (EN, FR)
