@@ -1,0 +1,40 @@
+The executable file curl.exe is able to work on a FPU-less machine using
+just 4 MB of DPMI memory. It is linked against OpenSSL, which in turn is
+specially built for i386, libssh2, Watt-32, zlib and libemu from DJGPP.
+More detailed configuration (see also the output of curl.exe -V):
+
+  curl version:     7.53.1
+  Host setup:       i386-pc-msdosdjgpp
+  Install prefix:   /dev/env/DJDIR
+  Compiler:         i386-pc-msdosdjgpp-gcc-4.1
+  SSL support:      enabled (OpenSSL)
+  SSH support:      enabled (libSSH2)
+  zlib support:     enabled
+  GSS-API support:  no      (--with-gssapi)
+  TLS-SRP support:  enabled
+  resolver:         default (--enable-ares / --enable-threaded-resolver)
+  IPv6 support:     enabled
+  Unix sockets support: no      (--enable-unix-sockets)
+  IDN support:      no      (--with-{libidn2,winidn})
+  Build libcurl:    Shared=no, Static=yes
+  Built-in manual:  no      (--enable-manual)
+  --libcurl option: no
+  Verbose errors:   no
+  SSPI support:     no      (--enable-sspi)
+  ca cert bundle:   no
+  ca cert path:     no
+  ca fallback:      no
+  LDAP support:     no      (--enable-ldap / --with-ldap-lib / --with-lber-lib)
+  LDAPS support:    no      (--enable-ldaps)
+  RTSP support:     enabled
+  RTMP support:     no      (--with-librtmp)
+  metalink support: no      (--with-libmetalink)
+  PSL support:      no      (libpsl not found)
+  HTTP2 support:    disabled (--with-nghttp2)
+  Protocols:        DICT FILE FTP FTPS GOPHER HTTP HTTPS IMAP IMAPS POP3 POP3S RTSP SCP SFTP SMB SMBS SMTP SMTPS TELNET TFTP
+
+In order to use SCP/SFTP a random number driver must be installed otherwise
+Diffie-Hellman key exchange will not pass. One such driver is available on
+http://www.rahul.net/dkaufman/index.html.
+
+ -- Michael Kostylev <michael.kostylev@gmail.com>  Fri, 03 Mar 2017 19:41:40 +0300
