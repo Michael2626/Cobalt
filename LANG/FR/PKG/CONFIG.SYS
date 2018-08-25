@@ -1,15 +1,12 @@
 SET DOSDIR=C:\COBALT
-
 !COUNTRY=001,858,C:\COBALT\BIN\COUNTRY.SYS
 !LASTDRIVE=Z
 !BUFFERS=20
 !FILES=40
 !MENUCOLOR=7,0
-
-MENUDEFAULT=2,5
+MENUDEFAULT=1,5
 MENU 1 - D‚marrer Cobalt en mode normal (tous les pilotes charg‚s)
 MENU 2 - D‚marrer Cobalt en mode sans ‚chec (aucun pilote charg‚)
-
 1?DOS=HIGH
 1?DOS=UMB
 1?DOSDATA=UMB
