@@ -27,8 +27,8 @@ set OS_VERSION=1.3
 
 cls
 echo.
-echo Welcome to Cobalt %OS_VERSION%.
-echo You are currently in safe mode.
-echo All drivers in the systems have been disabled.
-echo Please restart in normal mode to re-enable all drivers.
+echo Bienvenue sur Cobalt %OS_VERSION%.
+echo Vous ˆtes actuellement en mode sans ‚chec.
+echo Tous les pilotes du systŠme ont ‚t‚ d‚sactiv‚s.
+echo Veuillez r‚d‚marrer pour revenir en mode normal.
 echo.

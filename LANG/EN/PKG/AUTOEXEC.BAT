@@ -60,13 +60,5 @@ alias auto=edit %0
 set OS_VERSION=1.3
 
 if exist %dosdir%\bin\fdnet.bat call %dosdir%\bin\fdnet.bat start
-
-cls
-echo.
-
-echo Welcome to Cobalt %OS_VERSION%.
-echo Type HELP to see all commands.
-if exist \GEM.BAT echo Type GEM to start the OpenGEM Desktop.
-if exist \BIN\DOSSHELL.COM echo Type DOSSHELL to run the Shell.
-if exist \WINDOWS\SYSTEM\DOSX.EXE echo Type RUNWIN to run Microsoft Windows.
-echo.
+if exist %dosdir%\bin\welcome.bat call %dosdir%\bin\welcome.bat start
+if exist %dosdir%\bin\setinv.bat call %dosdir%\bin\setinv.bat start
