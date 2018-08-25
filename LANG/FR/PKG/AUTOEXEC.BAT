@@ -26,6 +26,7 @@ keyb FR
 %DOSDIR%\DRV\SHSUCDX\SHSUCDX.COM /QQ /~ /D:?SHSU-CDR,D /D:?SHSU-CDH,D /D:?FDCD0001,D /D:?FDCD0002,D /D:?FDCD0003,D
 
 MEM /C /N
+
 %DOSDIR%\DRV\SHSUCDX\SHSUCDX.COM /D
 
 if exist \WINDOWS\SYSTEM\DOSX.EXE goto windowsinfo
@@ -41,7 +42,7 @@ echo  Seuls Microsoft Windows 3.0, 3.1 et 3.11 sont pris en charge par COBALT.
 echo  Les autres versions peuvent peut-ˆtre fonctionnelles,
 echo  mais elles n'ont pas ‚t‚ test‚es.
 echo.
-echo  Pour ex‚cuter Windows dans COBALT, tapez RUNWIN au lieu de WIN.
+echo  Pour ex‚cuter Windows dans Cobalt, tapez RUNWIN au lieu de WIN.
 echo.
 echo.
 pause >nul
@@ -61,6 +62,6 @@ alias auto=edit %0
 
 set OS_VERSION=1.3
 
-if exist %dosdir%\bin\fdnet.bat call %dosdir%\bin\fdnet.bat start
-if exist %dosdir%\bin\welcome.bat call %dosdir%\bin\welcome.bat start
-if exist %dosdir%\bin\setinv.bat call %dosdir%\bin\setinv.bat start
+if exist %dosdir%\bin\fdnet.bat call fdnet.bat start
+if exist %dosdir%\bin\welcome.bat call welcome.bat start
+if exist %dosdir%\bin\setinv.bat call setinv.bat start

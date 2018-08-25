@@ -24,6 +24,7 @@ IF EXIST %DOSDIR%\DRV\DOSLFN\DOSLFN.COM LH DOSLFN
 %DOSDIR%\DRV\SHSUCDX\SHSUCDX.COM /QQ /~ /D:?SHSU-CDR,D /D:?SHSU-CDH,D /D:?FDCD0001,D /D:?FDCD0002,D /D:?FDCD0003,D
 
 MEM /C /N
+
 %DOSDIR%\DRV\SHSUCDX\SHSUCDX.COM /D
 
 if exist \WINDOWS\SYSTEM\DOSX.EXE goto windowsinfo
@@ -59,6 +60,6 @@ alias auto=edit %0
 
 set OS_VERSION=1.3
 
-if exist %dosdir%\bin\fdnet.bat call %dosdir%\bin\fdnet.bat start
-if exist %dosdir%\bin\welcome.bat call %dosdir%\bin\welcome.bat start
-if exist %dosdir%\bin\setinv.bat call %dosdir%\bin\setinv.bat start
+if exist %dosdir%\bin\fdnet.bat call fdnet.bat start
+if exist %dosdir%\bin\welcome.bat call welcome.bat start
+if exist %dosdir%\bin\setinv.bat call setinv.bat start
